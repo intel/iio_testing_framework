@@ -1,0 +1,67 @@
+Usage
+
+./test_script.sh -l log_level -e executable_path -r results_path_on_device -o output_path -d android_devices_identifiers -p devices_info -s tests_suite
+./test_script.sh -l log_level -e executable_path -r results_path_on_device -o output_path -d android_devices_identifiers -p devices_info -s "cmdLine" -c command_line_test
+
+log_levels:
+	NOTHING	= 0,
+	FATAL = 1,
+	ERROR = 2,
+	DEBUG = 3,
+	VERBOSE	= 4
+
+executable_path is path for iio testing framework executable
+results_path_on_device is path for results in device
+output_path is path for results in your system
+File devices_info should contain on the first column an identifier for each android device and on the second column their serial numbers
+android_devices_identifiers should defined between "" devices that are tested. If this option is not defined, all devices from devices_info are tested
+
+Each sensor type is identified by one of the following tags:
+	-accel
+	-anglvel
+	-magn
+	-intensity
+	-illuminance
+	-temp
+
+Tests syntax in tests_suite
+
+test "test description"{
+	command_1
+	command_2
+	...
+	command_n
+}
+
+Example of commands:
+
+list_triggers - list exposed triggers
+
+list_sensors - list exposed sensors
+
+clean_up - deactivate all sensors (doesn't fail if sensors are alredy deactivated)
+
+activate_all_sensors/deactivate_all_sensors (fails if sensors are already activated/deactivated)
+
+activate_deactivate_all_sensors counter counter_value - activate and deactivate all sensors for counter_value times (fails if sensors are already activated/deactivated)
+
+activate sensor_tag_1 sensor_tag_2 ... sensor_tag_n (fails if sensors are already activated)
+
+deactivate sensor_tag_1 sensor_tag_2 ... sensor_tag_n (fails if sensors are already deactivated)
+
+check_channels sensor_tag_1 sensor_tag_2 ... sensor_tag_n - check if sensors have configured their channels
+
+set_freq sensor_tag_1 freq frequency_value_1 sensor_tag_2 freq frequency_value_2 ... sensor_tag_n freq frequency_value_n - set frequency on freq_value for each sensor
+
+check_freq sensor_tag_1 freq frequency_value_1 sensor_tag_2 freq frequency_value_2 ... sensor_tag_n freq frequency_value_n 
+duration duration_value - check for duration = duration_value if samples frequency is close to set frequency
+
+check_sample_timestamp_difference sensor_tag_1 freq frequency_value_1 sensor_tag_2 freq frequency_value_2 ... sensor_tag_n freq frequency_value_n delay delay_value duration duration_value - check for duration = duration_value if difference between every client delay and set delay is less than delay_value
+
+check_sample_timestamp_average_difference sensor_tag_1 freq frequency_value_1 sensor_tag_2 freq frequency_value_2 ... sensor_tag_n freq frequency_value_n delay delay_value duration duration_value - check for duration = duration_value if difference between medium client delay and set delay is less than delay_value
+
+check_client_delay sensor_tag_1 freq frequency_value_1 sensor_tag_2 freq frequency_value_2 ... sensor_tag_n freq frequency_value_n delay delay_value duration duration_value - check for duration = duration_value if each difference between system timestamp and client timestamp is less than delay_value
+
+check_client_average_delay sensor_tag_1 freq frequency_value_1 sensor_tag_2 freq frequency_value_2 ... sensor_tag_n freq frequency_value_n delay delay_value duration duration_value - check for duration = duration_value if medium difference between system timestamp and client timestamp is less than delay_value
+
+In test.txt are defined some examples of tests.

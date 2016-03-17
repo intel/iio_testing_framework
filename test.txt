@@ -1,0 +1,74 @@
+test "check_sample_timestamp difference"{
+	check_sample_timestamp_difference magn freq 30 delay 10 accel freq 200 delay 10 anglvel freq 100 delay 30 duration 10
+}
+test "check_client_delay"{
+	check_client_delay magn freq 30 delay 100 accel freq 200 delay 20 anglvel freq 100 delay 50 duration 10
+}
+test "check_client_average_delay"{
+	check_client_average_delay magn freq 30 delay 100 accel freq 200 delay 10 anglvel freq 100 delay 30 duration 10
+}
+test "check_sample_timestamp_average_difference"{
+	check_sample_timestamp_average_difference magn freq 30 delay 10 accel freq 200 delay 10 anglvel freq 100 delay 10 duration 10
+}
+test "activate deactivate"{
+	clean_up_sensors
+	activate_deactivate accel magn anglvel counter 2
+}
+test "activate"{
+	activate accel magn anglvel
+}
+test "activate deactivate"{
+	clean_up_sensors
+	activate_deactivate accel magn anglvel counter 3
+}
+test "activate"{
+	activate accel magn anglvel
+}
+test "deactivate"{
+	deactivate accel magn anglvel
+}
+test "activate deactivate"{
+	activate_deactivate accel magn anglvel counter 2
+}
+test "jitter"{
+	jitter accel magn anglvel
+}
+test "standard deviation accel"{
+	standard_deviation accel
+}
+test "set_freq"{
+	set_freq accel freq 200 anglvel freq 100 magn freq 50 
+}
+test "check freq"{
+	check_freq accel freq 62.5 anglvel freq 200 magn freq 30 duration 10
+	check_freq accel freq 150 anglvel freq 150 magn freq 10 duration 10
+	check_freq accel freq 100 anglvel freq 100 magn freq 20 duration 10
+	check_freq accel freq 200 anglvel freq 100 magn freq 50 duration 10
+}
+test "set_freq"{
+	set_freq accel freq 300 anglvel freq 300 magn freq 10
+	set_freq accel freq 100 anglvel freq 100 magn freq 20
+	set_freq accel freq 200 anglvel freq 100 magn freq 50
+}
+test "channels"{
+	check_channels illuminance accel magn anglvel
+}
+test "activate all"{
+	clean_up_sensors
+	activate_all_sensors
+}
+test "deactivate all"{
+	deactivate_all_sensors
+}
+test "activate deactivate all"{
+	activate_deactivate_all_sensors counter 2
+}
+test "clean_up_sensors"{
+	clean_up_sensors
+}
+test "list sensors"{
+	list_sensors
+}
+test "list triggers"{
+	list_triggers
+}
